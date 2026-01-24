@@ -1,7 +1,8 @@
 <?php
 
-require './CourseValidator.php';
-require './CourseType.php';
+namespace App;
+
+use App\CourseValidator;
 
 class Course {
   private ?string $title = null;

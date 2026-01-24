@@ -1,5 +1,8 @@
 <?php
-require "Course.php";
+require_once __DIR__ . '/vendor/autoload.php';
+
+use App\Course;
+use App\CourseType;
 
 try {
   $archived = false;

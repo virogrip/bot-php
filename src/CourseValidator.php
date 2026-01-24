@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class CourseValidator {
   private array $rules;
 
@@ -37,7 +39,7 @@ class CourseValidator {
     $rule = $this->rules[$property];
 
     if (!$rule['check']($value)) {
-      throw new InvalidArgumentException($rule['error']);
+      throw new \InvalidArgumentException($rule['error']);
     }
 
     return $value;
