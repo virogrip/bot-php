@@ -1,0 +1,61 @@
+#!/usr/bin/env php
+<?php
+
+$cyan = "\033[0;36m";
+$green = "\033[0;32m";
+$yellow = "\033[1;33m";
+$reset = "\033[0m";
+
+echo "{$cyan}=== Bienvenido a Botcito v2.0 ==={$reset}\n";
+echo "Escribe 'salir' para terminar.\n\n";
+
+$userName = "";
+
+while (true) {
+  $prompt = $userName ? "{$green}$userName > {$reset}" : "{$green}> {$reset}";
+  $input = readline($prompt);
+  $cleanInput = strtolower(trim($input));
+
+  if ($cleanInput === 'salir' || $cleanInput === 'exit' || $input === '') {
+    echo "{$yellow}Botcito: ¡Adiós! Que tengas un gran día.{$reset}\n";
+    break;
+  }
+
+  echo "{$yellow}Pensando...{$reset} ";
+
+  for ($i = 0; $i < 3; $i++) {
+    echo ".";
+    usleep(300000);
+  }
+  echo "\n";
+
+  if (str_contains($cleanInput, "hola")) {
+    if ($userName) {
+      echo "Botcito: ¡Hola de nuevo, $userName! ¿En qué puedo ayudarte hoy?\n";
+    } else {
+      echo "Botcito: ¡Holaaa!, soy Botcito. ¿Cómo te llamas?\n";
+      $userName = readline("Tu nombre: ");
+      echo "Botcito: ¡Qué nombre tan genial, $userName! Un gusto conocerte.\n";
+    }
+    continue;
+  }
+
+  if (str_contains($cleanInput, "tu nombre") || str_contains($cleanInput, "te llamas")) {
+    echo "Botcito: Me llamo Botcito, tu asistente experimental en PHP.\n";
+    continue;
+  }
+
+  if (str_contains($cleanInput, "hora")) {
+    echo "Botcito: Son las " . date("H:i:s") . ". ¡El tiempo vuela!\n";
+    continue;
+  }
+
+  $respuestas = [
+    "Interesante lo que dices: '$input'",
+    "No estoy seguro de entenderlo al 100%, pero suena profundo.",
+    "¡Qué curioso! Cuéntame más sobre eso.",
+    "AI: $input (Sigo aprendiendo, ¡tenme paciencia!)"
+  ];
+
+  echo "Botcito: " . $respuestas[array_rand($respuestas)] . PHP_EOL;
+}
