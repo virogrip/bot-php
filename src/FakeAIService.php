@@ -2,7 +2,9 @@
 
 namespace App;
 
-class FakeAIService {
+use App\Interfaces\AIService;
+
+class FakeAIService implements AIService {
 
   public function __construct(
     public ?string $username = null,

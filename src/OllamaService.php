@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Interfaces\AIService;
 use ArdaGnsrn\Ollama\Ollama;
 
-class OllamaService {
+class OllamaService implements AIService {
   private Ollama $client;
   
   public function __construct(
