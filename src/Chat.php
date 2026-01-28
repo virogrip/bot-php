@@ -29,10 +29,15 @@ class Chat {
         break;
       }
 
-      $response = $this->AIService->ask($cleanInput);
+      $response = $this->getResponse($cleanInput);
 
       $this->output($response);
     }
+  }
+
+  public function getResponse(string $question): string
+  {
+    return $this->AIService->ask($question);
   }
 
   private function output(string $response)
