@@ -9,24 +9,39 @@ class Chat {
     private AIService $AIService
   ){}
 
-  public function start()
+  private function welcome()
   {
     echo Colors::CYAN . "=== Bienvenido a Botcito v2.0 ===" . Colors::RESET . "\n";
     echo "Escribe 'salir' para terminar.\n\n";
+  }
+
+  public function start()
+  {
+    $this->welcome();
 
     while (true) {
-      $prompt = $this->AIService->username ? Colors::GREEN . "$this->AIService->username >" . Colors::RESET : Colors::GREEN . ">" . Colors::RESET;
+      $prompt = $this->AIService->username ? Colors::GREEN . "{$this->AIService->username} >" . Colors::RESET : Colors::GREEN . ">" . Colors::RESET;
       $input = readline($prompt);
       $cleanInput = strtolower(trim($input));
 
-      if (in_array($cleanInput, ["salir", "cancelar"])) {
+      if ($this->exit($cleanInput)) {
         echo Colors::YELLOW . "Botcito: ¡Adiós! Que tengas un gran día." . Colors::RESET . "\n";
         break;
       }
 
       $response = $this->AIService->ask($cleanInput);
 
-      echo $response;
+      $this->output($response);
     }
+  }
+
+  private function output(string $response)
+  {
+    echo $response . PHP_EOL;
+  }
+
+  private function exit(string $input)
+  {
+    return in_array($input, ["salir", "cancelar"]);
   }
 }
